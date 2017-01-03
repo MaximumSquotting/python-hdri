@@ -3,18 +3,28 @@ import numpy as np
 
 from scipy import misc
 
+def rgb2gray(rgb):
+    return np.dot(rgb[...,:3], [0.299, 0.587, 0.114])
+
 images = glob.glob('input/*.jpg')
 
-np_images = []
+color_images = []
 for path in images:
-    np_images.append(misc.imread(path))
+    color_images.append(misc.imread(path))
 
-hdr_image = np.zeros(np_images[0].shape, np_images[0].dtype)
+gray_images = list(map(rgb2gray, color_images))
 
-for npi in np_images:
-    hdr_image = np.add(hdr_image, npi)
+color_image = np.zeros(color_images[0].shape, color_images[0].dtype)
+gray_image = np.zeros(gray_images[0].shape, gray_images[0].dtype)
 
-hdr_image = hdr_image // len(np_images)
+for cri in color_images:
+    color_image = np.add(color_image, cri)
 
-misc.imsave('output/output.jpg', hdr_image)
-misc.imsave('output/test.jpg', np_images[0])
+for gri in gray_images:
+    gray_image = np.add(gray_image, gri)
+
+color_image = color_image // len(color_images)
+gray_image = gray_image // len(gray_images)
+
+misc.imsave('output/output_color.jpg', color_image)
+misc.imsave('output/output_gray.jpg', gray_image)

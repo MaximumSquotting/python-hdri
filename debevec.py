@@ -24,7 +24,7 @@ def read_images(path):
     files = [f for f in listdir(path) if isfile(join(path, f))]
     imgs = dict()
     for f in files:
-        print APP_PREFIX + ' Reading image: ' + f
+        print(APP_PREFIX + ' Reading image: ' + f)
         shutter_time_text = splitext(f)[0]
         shutter_time = float(shutter_time_text[1:])
         imgs[shutter_time] = imread(join(path, f))
@@ -63,7 +63,7 @@ def get_samples(imgs_array, channel, num_points):
     '''Returns a matrix with intensity values (0-255) with many rows as sample points,
         and many columns as exposure times (num. of images)'''
     #Samples points
-    img_shape = imgs_array[imgs_array.keys()[0]].shape
+    img_shape = imgs_array[list(imgs_array.keys())[0]].shape
     sp_x = np.random.randint(0, img_shape[0]-1, (num_points, 1))
     sp_y = np.random.randint(0, img_shape[1]-1, (num_points, 1))
     sp = np.concatenate((sp_x, sp_y), axis=1)
@@ -161,11 +161,11 @@ def create_radiance_map(imgs, G, w):
     get_w_values = np.vectorize(w)
 
     #Reduce noise by weighting the E values
-    img_shape = imgs[imgs.keys()[0]].shape
+    img_shape = imgs[list(imgs.keys())[0]].shape
     R = np.zeros(img_shape)
     W = np.zeros(img_shape, dtype=float)
     for dt in imgs:
-        print APP_PREFIX + 'Processing image with dt = ', dt
+        print(APP_PREFIX + 'Processing image with dt = ', dt)
         W_aux = get_w_values(imgs[dt])
         R += W_aux * (map_z_values(dt))(imgs[dt]).reshape(img_shape)
         W += W_aux
@@ -192,7 +192,7 @@ if __name__=='__main__':
 
     #Print some (hopefully) useful documentation
     if ( len(sys.argv) != 3 ):
-        print   'Usage: ' + APP_NAME + ' <input_folder> <output_folder>\n' \
+        print('Usage: ' + APP_NAME + ' <input_folder> <output_folder>\n' \
                 '<input_folder> ->  Directory containing only images. Each one has to be named as follows:\n' \
                 '                   t<time_exposure_1>.png\n' \
                 '                   t<time_exposure_2>.jpg\n' \
@@ -202,7 +202,7 @@ if __name__=='__main__':
                 '                   <time_exposure> has to be in seconds.\n' \
                 '\n' \
                 '<output_folder> -> Directoy to store the results. HDR image, PFM image, Radiance map,\n' \
-                'PNG file, and the fitted curve for log exposure.\n'
+                'PNG file, and the fitted curve for log exposure.\n')
         exit(-1)
 
     L_CHANNEL = 0
@@ -217,7 +217,7 @@ if __name__=='__main__':
 
     #sampling
     channel = L_CHANNEL
-    num_samples = 1500.0 / len(imgs_array.keys())
+    num_samples = 1500.0 / len(list(imgs_array.keys()))
     Z, B = get_samples(imgs_array, channel, num_samples)
     n, p = Z.shape
 
@@ -226,11 +226,11 @@ if __name__=='__main__':
     Zmax = 255.0    #np.amax(Z)
     w_hat = lambda z: z - Zmin + 1 if z <= (Zmin + Zmax)/2 else Zmax - z + 1
     l = 550
-    print APP_PREFIX + 'Fitting log exposure curve...'
+    print(APP_PREFIX + 'Fitting log exposure curve...')
     G, E = fit_response(Z, B, l, w_hat)
 
     #creating radiance map for the channel
-    print APP_PREFIX + 'Creating radiance map (could take a while...)'
+    print(APP_PREFIX + 'Creating radiance map (could take a while...)')
     relative_R = create_radiance_map(imgs_array, G, w_hat)
     R = np.exp(relative_R)
 
@@ -239,18 +239,18 @@ if __name__=='__main__':
     hdr_filename = join(output_folder, 'output.hdr')
     pfm_filename = join(output_folder, 'output.pfm')
     png_filename = join(output_folder, 'output.png')
-    print APP_PREFIX + 'Saving HDR image on: ', hdr_filename
+    print(APP_PREFIX + 'Saving HDR image on: ', hdr_filename)
     write_hdr(hdr_filename, R)
-    print APP_PREFIX + 'Saving PFM image on: ', pfm_filename
+    print(APP_PREFIX + 'Saving PFM image on: ', pfm_filename)
     save_pfm(pfm_filename, np.float32(R))
-    print APP_PREFIX + 'Saving Tonemap for the scene on: ', tonemap_filename
+    print(APP_PREFIX + 'Saving Tonemap for the scene on: ', tonemap_filename)
     imsave(tonemap_filename, tonemap(relative_R[:, :, channel]))
-    print APP_PREFIX + 'Saving HDR image on: ', png_filename
+    print(APP_PREFIX + 'Saving HDR image on: ', png_filename)
     #Gamma compression
     gamma = 0.5
     imsave(png_filename, np.power(relative_R, gamma))
 
-    print APP_PREFIX + 'Creating and saving response function plot'
+    print(APP_PREFIX + 'Creating and saving response function plot')
     #Creates a plot for the response curve
     plot(G, np.arange(256))
     title('RGB Response function')
@@ -258,4 +258,4 @@ if __name__=='__main__':
     ylabel('Z value')
     savefig(join(output_folder, 'response_curve.png'))
 
-print APP_PREFIX + 'Done.'
+print(APP_PREFIX + 'Done.')

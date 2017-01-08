@@ -47,15 +47,15 @@ def save_pfm(filename, image, scale=1):
     else:
         raise Exception('Image must have H x W x 3, H x W x 1 or H x W dimensions.')
 
-    file.write('PF\n' if color else 'Pf\n')
-    file.write('%d %d\n' % (image.shape[1], image.shape[0]))
+    file.write('PF\n'.encode() if color else 'Pf\n'.encode())
+    file.write('%d %d\n'.encode() % (image.shape[1], image.shape[0]))
 
     endian = image.dtype.byteorder
 
     if endian == '<' or endian == '=' and sys.byteorder == 'little':
         scale = -scale
 
-    file.write('%f\n' % scale)
+    file.write('%f\n'.encode() % scale)
 
     image.tofile(file)
 

@@ -133,8 +133,8 @@ def write_hdr(filename, image):
     '''Writes a HDR image into disk. Assumes you have a np.array((height,width,3), dtype=float)
         as your HDR image'''
     f = open(filename, "wb")
-    f.write(b'#?RADIANCE\n# Made with Python & Numpy\nFORMAT=32-bit_rle_rgbe\n\nb')
-    f.write(b'-Y {0} +X {1}\n'.format(image.shape[0], image.shape[1]))
+    f.write("#?RADIANCE\n# Made with Python & Numpy\nFORMAT=32-bit_rle_rgbe\n\nb".encode())
+    f.write("-Y {0} +X {1}\n".format(image.shape[0], image.shape[1]).encode())
 
     brightest = np.maximum(np.maximum(image[...,0], image[...,1]), image[...,2])
     mantissa = np.zeros_like(brightest)

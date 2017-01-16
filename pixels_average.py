@@ -23,8 +23,8 @@ for cri in color_images:
 for gri in gray_images:
     gray_image = np.add(gray_image, gri)
 
-color_image = color_image // len(color_images)
-gray_image = gray_image // len(gray_images)
+color_image //= len(color_images)
+gray_image //= len(gray_images)
 
 misc.imsave('output/output_color.jpg', color_image)
 misc.imsave('output/output_gray.jpg', gray_image)

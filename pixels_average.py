@@ -6,7 +6,7 @@ from scipy import misc
 def rgb2gray(rgb):
     return np.dot(rgb[...,:3], [0.299, 0.587, 0.114])
 
-images = glob.glob('input/*.JPG')
+images = glob.glob('input/*.jpg')
 
 color_images = []
 for path in images:
@@ -26,5 +26,5 @@ for gri in gray_images:
 color_image //= len(color_images)
 gray_image //= len(gray_images)
 
-misc.imsave('output/output_color.jpg', color_image)
+misc.imsave('output/output_color.jpg', color_image.astype('uint8'))
 misc.imsave('output/output_gray.jpg', gray_image)

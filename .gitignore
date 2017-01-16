@@ -1,3 +1,5 @@
 virtualenv/*
 opencv/*
 statyw/*
+input/*
+output/*

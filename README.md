@@ -1,21 +1,24 @@
 # python-hdri
+
 Generate HDR images with Python 3.
 
-Raport pisemny:
-1. Wstęp - co robimy, opis problemu, uzasadnienie -> (2-3 zdania)
-2. Opis zastosowanej metody.
-3. Opis użytych komponentów obcych
-4. Inżynierski opis implementacji
-5. Eksperymenty
-5.1. Opis danych
-5.2. Wyniki (+uzyskane obrazy)
-5.2.1. Przypadki łatwe
-5.2.2. Przypadki trudne
-6. Podsumowanie
+## Raport pisemny:
 
-Płyta CD:
--kod źródłowy
--wymagane biblioteki
--binarki
--dane testowe
--skrypty typu README/MAKE
+#. Wstęp - co robimy, opis problemu, uzasadnienie -> (2-3 zdania)
+#. Opis zastosowanej metody.
+#. Opis użytych komponentów obcych
+#. Inżynierski opis implementacji
+#. Eksperymenty
+  #. Opis danych
+  #. Wyniki (+uzyskane obrazy)
+    #. Przypadki łatwe
+    #. Przypadki trudne
+#. Podsumowanie
+
+## Płyta CD:
+
+#. kod źródłowy
+#. wymagane biblioteki
+#. binarki
+#. dane testowe
+#. skrypty typu README/MAKE

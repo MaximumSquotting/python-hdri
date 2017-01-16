@@ -12,3 +12,10 @@ Raport pisemny:
 5.2.1. Przypadki łatwe
 5.2.2. Przypadki trudne
 6. Podsumowanie
+
+Płyta CD:
+-kod źródłowy
+-wymagane biblioteki
+-binarki
+-dane testowe
+-skrypty typu README/MAKE

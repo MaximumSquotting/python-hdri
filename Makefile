@@ -4,11 +4,21 @@ clean:
 hdri:
 	python3 debevec.py input output
 
-pixels_average:
-	python3 pixels_average.py
+rgb_average:
+	python3 matplot_rgb_average.py
+
+rgb_weighted:
+	python3 matplot_rgb_weights.py
+
+rgb: rgb_average rgb_weighted
 
 hsv_average:
-	python3 hsv_average.py
+	python3 matplot_hsv_average.py
+
+hsv_weighted:
+	python3 matplot_hsv_weights.py
+
+hsv: hsv_average hsv_weighted
 
 copy_scenery:
 	-rm -rf input/*

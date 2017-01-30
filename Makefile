@@ -1,8 +1,11 @@
 clean:
 	-rm -rf output/*
 
+rename:
+	python3 read_exif.py `ls input/*.jpg`
+
 hdri:
-	python3 debevec.py input output
+	python3 debevec.py input/ output/
 
 rgb_average:
 	python3 matplot_rgb_average.py
@@ -28,4 +31,6 @@ copy_inside:
 	-rm -rf input/*
 	cp -rf statyw/pokój/*.JPG input/
 
-all: clean
+scenery: clean copy_scenery rename hdri rgb hsv
+
+inside: clean copy_inside rename hdri rgb hsv

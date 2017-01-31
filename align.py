@@ -1,7 +1,6 @@
 import numpy as np
 import imutils
 import cv2
-import ipdb
 
 def detect_and_describe(image):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)

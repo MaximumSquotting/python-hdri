@@ -1,5 +1,8 @@
-clean:
+clean_output:
 	-rm -rf output/*
+	
+clean_input:
+	-rm -rf input/*
 
 rename:
 	python3 read_exif.py `ls input/*.jpg`
@@ -24,13 +27,41 @@ hsv_weighted:
 hsv: hsv_average hsv_weighted
 
 copy_scenery:
-	-rm -rf input/*
 	cp -rf statyw/dwór/*.JPG input/
 
 copy_inside:
-	-rm -rf input/*
 	cp -rf statyw/pokój/*.JPG input/
+	
+copy_memorial:
+	cp -rf memorial/*.jpg input/
+	
+copy_cave:
+	cp -rf cave/* input/
+	
+copy_chinese_garden:
+	cp -rf chinese_garden/* input/
+	
+copy_kluki:
+	cp -rf kluki/* input/
+	
+copy_mountains:
+	cp -rf mountains/* input/
 
-scenery: clean copy_scenery rename hdri rgb hsv
+copy_ostrow_tumski:
+	cp -rf ostrow_tumski/* input/
 
-inside: clean copy_inside rename hdri rgb hsv
+scenery: clean_output clean_input copy_scenery rename hdri rgb hsv
+
+inside: clean_output clean_input copy_inside rename hdri rgb hsv
+
+memorial: clean_output clean_input copy_memorial rgb hsv
+
+cave: clean_output clean_input copy_cave rename hdri rgb hsv
+
+chinese_garden: clean_output clean_input copy_chinese_garden rename hdri rgb hsv
+
+kluki: clean_output clean_input copy_kluki rename hdri rgb hsv
+
+mountains: clean_output clean_input copy_mountains rename hdri rgb hsv
+
+ostrow_tumski: clean_output clean_input copy_ostrow_tumski rename hdri rgb hsv

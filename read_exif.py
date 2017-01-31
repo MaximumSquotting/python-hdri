@@ -3,14 +3,13 @@
 import argparse
 import os
 import pyexiv2
-import ipdb
 
 def get_exposure(photo):
     metadata = pyexiv2.ImageMetadata(photo)
     metadata.read()
     try:
         exposure_fraction = metadata['Exif.Photo.ExposureTime'].value
-        return round(float(exposure_fraction), 2)
+        return round(float(exposure_fraction), 10)
     except KeyError:
         print("%{0} lacks ExposureTime EXIF tag. Skipping.".format(photo))
         pass
@@ -24,4 +23,4 @@ for filename in args.images:
     filename_split = os.path.splitext(filename)
     new_filename = "t{0}{1}".format(exposure, filename_split[1].lower())
     print("Renaming {0} to {1}".format(filename, new_filename))
-    os.rename(filename, new_filename)
+    os.rename(filename, "input/" + new_filename)
